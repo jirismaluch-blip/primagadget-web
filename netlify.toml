@@ -1,0 +1,11 @@
+
+# Minimal Netlify config
+[build]
+  publish = "."
+  command = ""
+
+# Clean URLs
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
