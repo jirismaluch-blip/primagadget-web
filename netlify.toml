@@ -1,11 +1,13 @@
-
-# Minimal Netlify config
 [build]
   publish = "."
   command = ""
 
-# Clean URLs
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[headers]]
+  for = "/admin/config.yml"
+  [headers.values]
+    Content-Type = "text/yaml"
