@@ -1,67 +1,182 @@
-<!doctype html> 
+<!doctype html>
 <html lang="cs">
-  <head>
-    <title>ROZJEŤ DROPSHIPPING – TEST AUTO DEPLOY 🔥</title> 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Moderní landing pro dropshipping s rychlým CTA a produktovou sekcí.">
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <!-- Test AutoDeploy: aktualizace 6.10 -->
-    <header class="container">
-      <nav class="nav">
-        <div class="brand">ROZJETÍ<span>DROPSHIPPING</span></div>
-        <a class="cta" href="#shop">Nakoupit</a>
-      </nav>
-      <section class="hero">
-        <h1>Spusť prodej během minut</h1>
-        <p>Rychlá, čistá a konverzní šablona připravená pro Netlify & GitHub.</p>
-        <a class="btn primary" href="#shop">Zobrazit top produkty</a>
-      </section>
-    </header>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Prime Gadget – Nejlepší gadgety v Evropě</title>
+  <meta name="description" content="Vybrané top gadgety, rychlé doručení, bezpečný nákup.">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="container header">
+    <div class="brand">
+      <img src="assets/images/logo.svg" alt="Prime Gadget logo">
+      <span class="badge">NEW • verze 2.4</span>
+    </div>
+    <div class="toolbar">
+      <span id="flag" class="flag cz"></span>
+      <span class="lang" id="curLabel">CZK</span>
+      <select id="currency" aria-label="Přepnout měnu">
+        <option value="CZK">CZK</option>
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+      </select>
+    </div>
+  </header>
 
-    <main class="container" id="shop">
-      <h2>Top produkty</h2>
-      <div class="grid">
-        <article class="card">
-          <img src="assets/placeholder-1.svg" alt="Produkt A">
-          <h3>Produkt A</h3>
-          <p>Krátký benefit-driven popis produktu.</p>
-          <div class="price">499 Kč</div>
-          <button class="btn" data-sku="SKU-A">Přidat do košíku</button>
-        </article>
-        <article class="card">
-          <img src="assets/placeholder-2.svg" alt="Produkt B">
-          <h3>Produkt B</h3>
-          <p>Krátký benefit-driven popis produktu.</p>
-          <div class="price">699 Kč</div>
-          <button class="btn" data-sku="SKU-B">Přidat do košíku</button>
-        </article>
-        <article class="card">
-          <img src="assets/placeholder-3.svg" alt="Produkt C">
-          <h3>Produkt C</h3>
-          <p>Krátký benefit-driven popis produktu.</p>
-          <div class="price">899 Kč</div>
-          <button class="btn" data-sku="SKU-C">Přidat do košíku</button>
-        </article>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Prime Gadget <br/>— vybrané gadgety, <em>bez čekání</em></h1>
+        <p>Prémiový výběr techniky: herní doplňky, chytrá domácnost, audio, drony. Připraveno pro napojení na BigBuy.</p>
+        <div class="cta">
+          <a class="button" href="#produkty">Prohlédnout TOP 10</a>
+          <a class="button secondary" href="#kontakt">Kontakt</a>
+        </div>
       </div>
-    </main>
-
-    <section class="container trust">
-      <h2>Proč u nás</h2>
-      <ul>
-        <li>✔️ Ověřená kvalita dodavatelů</li>
-        <li>✔️ Rychlá doprava & sledování zásilek</li>
-        <li>✔️ 30 dní garance vrácení</li>
-      </ul>
+      <div class="hero-card">
+        <h2>Co je nového (2.4)</h2>
+        <ul class="muted">
+          <li>10 produktů s obrázky a cenami (CZK/EUR/USD přepínač).</li>
+          <li>Nové logo & vylepšené UI.</li>
+          <li>Offline režim (PWA + Service Worker).</li>
+          <li>Připraveno pro automatické nasazení Netlify.</li>
+        </ul>
+      </div>
     </section>
 
-    <footer class="container footer">
-      <small>© 2025 ROZJETÍ DROPSHIPPING • Všechna práva vyhrazena</small>
-    </footer>
+    <section id="produkty">
+      <h2>Top 10</h2>
+      <div class="grid">
+        
+      <article class="card">
+        <img src="assets/images/ps5-controller.svg" alt="PlayStation 5 Controller">
+        <div class="body">
+          <h3>PlayStation 5 Controller</h3>
+          <p class="muted">Originální ovladač pro PS5 s hmatovou odezvou.</p>
+          <div class="price">
+            <strong data-price="1590"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
 
-    <script src="script.js"></script>
-  </body>
+      <article class="card">
+        <img src="assets/images/smartwatch-pro-x.svg" alt="Smartwatch Pro X">
+        <div class="body">
+          <h3>Smartwatch Pro X</h3>
+          <p class="muted">Chytré hodinky s GPS a EKG, 7 dní výdrže.</p>
+          <div class="price">
+            <strong data-price="1890"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/images/drone-4k.svg" alt="Foldable Drone 4K">
+        <div class="body">
+          <h3>Foldable Drone 4K</h3>
+          <p class="muted">Skládací dron s 4K kamerou a stabilizací.</p>
+          <div class="price">
+            <strong data-price="4490"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/images/earbuds-anc.svg" alt="Bluetooth Earbuds ANC">
+        <div class="body">
+          <h3>Bluetooth Earbuds ANC</h3>
+          <p class="muted">Bezdrátová sluchátka s ANC a dlouhou výdrží.</p>
+          <div class="price">
+            <strong data-price="1290"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/images/projector-4k-mini.svg" alt="4K Projector Mini">
+        <div class="body">
+          <h3>4K Projector Mini</h3>
+          <p class="muted">Kapesní 4K projektor s Android TV.</p>
+          <div class="price">
+            <strong data-price="6990"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/images/hub-9in1.svg" alt="USB-C Hub 9-in-1">
+        <div class="body">
+          <h3>USB-C Hub 9-in-1</h3>
+          <p class="muted">9v1 USB‑C hub, HDMI 4K, PD 100W.</p>
+          <div class="price">
+            <strong data-price="990"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/images/keyboard-rgb.svg" alt="Mechanical Keyboard RGB">
+        <div class="body">
+          <h3>Mechanical Keyboard RGB</h3>
+          <p class="muted">Mechanická klávesnice s RGB a hot‑swap.</p>
+          <div class="price">
+            <strong data-price="2190"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/images/mouse-16k.svg" alt="Gaming Mouse 16000DPI">
+        <div class="body">
+          <h3>Gaming Mouse 16000DPI</h3>
+          <p class="muted">Herní myš s 16k DPI a 6 tlačítky.</p>
+          <div class="price">
+            <strong data-price="890"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/images/action-cam-4k.svg" alt="Action Cam 4K">
+        <div class="body">
+          <h3>Action Cam 4K</h3>
+          <p class="muted">Akční kamera 4K/60 s voděodolným pouzdrem.</p>
+          <div class="price">
+            <strong data-price="3290"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/images/led-strip-5m.svg" alt="Smart LED Strip 5m">
+        <div class="body">
+          <h3>Smart LED Strip 5m</h3>
+          <p class="muted">Chytrý LED pásek 5 m, Wi‑Fi, hlasové ovládání.</p>
+          <div class="price">
+            <strong data-price="690"></strong>
+            <span class="muted">Skladem</span>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="kontakt" class="footer">
+      <p>Kontakt: <a href="mailto:jirismaluch@gmail.com">jirismaluch@gmail.com</a> • +420 774 409 278</p>
+      <p>© 2025 Prime Gadget. Build 2025-10-11T10:12:37Z</p>
+    </section>
+  </main>
+  <script src="assets/js/main.js"></script>
+</body>
 </html>
