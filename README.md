@@ -1,21 +1,33 @@
-# ROZJETÍ DROPSHIPPING — minimalistická šablona
+# 🚀 Dropshipping verze 2.6 FULL
 
-Tahle ZIP verze obsahuje:
-- `index.html`, `styles.css`, `script.js`
-- složku `assets/` (pro obrázky/ikony)
-- `netlify.toml` (základní redirecty, ready pro Netlify)
-- jednoduchý košík (lokální badge) pro demo kliky
+### Co obsahuje:
+✅ Kompletní kód verze 2.6 (Next.js + Tailwind + Sharp)  
+✅ Automatickou optimalizaci obrázků (WebP, 1000/400 px)  
+✅ Admin panel `/admin/products/new`  
+✅ Frontend výpis produktů `/`  
+✅ API endpointy `/api/upload` a `/api/products`  
+✅ Jednoduchou databázi `data/products.json`  
+✅ Upgrade skript `upgrade_to_2_6.sh`  
 
-## Rychlý start
-1. Otevři `index.html` v prohlížeči.
-2. Chceš nasadit na Netlify?
-   - Vytvoř nový **Site** z GitHub repa **nebo** drag & drop ZIP přímo do Netlify.
-   - Pro GitHub flow: commitni obsah složky do repa, na Netlify dej *New site from Git* a vyber repozitář.
-
-## Doporučené kroky
-- Vyměň `assets/placeholder-*.svg` za reálné obrázky produktů.
-- Napoj platební bránu / checkout (Např. Stripe Checkout, Make + objednávkový formulář, apod.).
-- Přidej trackování (Meta Pixel, GA4).
+### Instalace / upgrade:
+1. Rozbal archiv do složky s projektem verze 2.5  
+2. Otevři terminál a spusť:
+   ```bash
+   ./upgrade_to_2_6.sh
+   ```
+3. Po dokončení spusť:
+   ```bash
+   npm run dev
+   ```
+4. Otevři prohlížeč: [http://localhost:3000](http://localhost:3000)
 
 ---
-Vygenerováno: 2025-09-22T20:39:25.792206
+
+### 📁 Struktura
+```
+/app               → logika webu a API
+/components        → React komponenty
+/data              → databáze produktů
+/public/uploads    → uložené obrázky
+upgrade_to_2_6.sh  → skript na upgrade
+```
