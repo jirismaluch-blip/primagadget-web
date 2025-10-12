@@ -1,0 +1,1 @@
+import products from '@/data/products.json'; import ProductCard from './ProductCard'; export default function ProductGrid(){ return (<section className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>{products.map((p:any)=><ProductCard key={p.id} p={p}/>)}</section>) }

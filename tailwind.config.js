@@ -1,15 +1,11 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  content: ["./app/**/*.{ts,tsx,js,jsx}", "./components/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
-      colors: {
-        darkBg: '#0d0d0d',
-        darkCard: '#1a1a1a',
-        darkText: '#e5e5e5',
-        darkAccent: '#3b82f6'
-      }
+      colors: { bg:"#05070b", card:"#0b0f17", text:"#e8eef8", brand:{ blue:"#3B82F6", neon:"#0EA3FF", green:"#22c55e", red:"#ff3b3b" } },
+      boxShadow: { glow:"0 0 30px rgba(59,130,246,0.35)" },
+      backgroundImage: { 'radial':'radial-gradient(1000px 600px at 10% 10%, rgba(59,130,246,0.18), transparent), radial-gradient(1000px 600px at 90% 10%, rgba(34,197,94,0.18), transparent)' }
     }
   },
   plugins: []
