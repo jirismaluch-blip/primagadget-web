@@ -1,1 +1,79 @@
-<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>PrimeGadgets — Nejlepší gadgety v Evropě</title><link rel="stylesheet" href="styles.css"></head><body><header><h1>PrimeGadgets v2.5</h1></header><main id="produkty"></main><footer><small>© <span id="year"></span> PrimeGadgets</small></footer><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Premium Gadget EU</title>
+  <link rel="preload" href="assets/img/logo-premium-gadget-eu.png" as="image">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo fade-in glow">
+      <img src="assets/img/logo-premium-gadget-eu.png" alt="Premium Gadget EU logo" />
+    </div>
+    <nav class="nav">
+      <a href="#produkty">Produkty</a>
+      <a href="#top10">Top 10</a>
+      <a href="#radio">Rádio</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="theme-toggle" id="themeToggle"><span class="icon">☾</span></div>
+  </header>
+
+  <div id="visitor-stats" class="visitor-stats">
+    <div class="stat-item"><span class="dot"></span><span>Online: <strong id="onlineCount">0</strong></span></div>
+    <div class="stat-item"><span>🛍️ Zákazníků celkem: <strong id="buyerCount">0</strong></span></div>
+  </div>
+
+  <button class="cart-fab" id="cartFab" title="Košík">
+    🛒 <span id="cartCount">0</span>
+  </button>
+
+  <div id="floating-switcher">
+    <div class="switcher-content">
+      <div class="language-switcher">
+        <img src="https://flagcdn.com/w20/cz.png" alt="CZ" data-lang="cs">
+        <img src="https://flagcdn.com/w20/gb.png" alt="EN" data-lang="en">
+        <img src="https://flagcdn.com/w20/de.png" alt="DE" data-lang="de">
+        <img src="https://flagcdn.com/w20/fr.png" alt="FR" data-lang="fr">
+      </div>
+      <div class="currency-switcher">
+        <button data-currency="EUR">EUR</button>
+        <button data-currency="CZK">CZK</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section id="produkty" class="section visible">
+      <h2 class="section-title">TOP 3 PRODUKTY</h2>
+      <div class="products-grid" id="top3"></div>
+    </section>
+    <section id="top10" class="section">
+      <h2 class="section-title">TOP 10 NEJPRODÁVANĚJŠÍCH PRODUKTŮ</h2>
+      <div class="products-grid" id="top10Grid"></div>
+    </section>
+    <section id="radio" class="section">
+      <h2 class="section-title">RÁDIO</h2>
+      <div id="radioMount"></div>
+    </section>
+    <section id="kontakt" class="section">
+      <h2 class="section-title">KONTAKT</h2>
+      <div class="contact">
+        <p>Napište nám: <a href="mailto:info@premiumgadget.eu">info@premiumgadget.eu</a></p>
+        <p>Zavolejte: <a href="tel:+420777000111">+420 777 000 111</a></p>
+      </div>
+    </section>
+  </main>
+
+  <div id="checkout-root"></div>
+
+  <audio id="ding" src="assets/js/sounds/ding.mp3" preload="auto"></audio>
+  <audio id="cash" src="assets/js/sounds/cash.mp3" preload="auto"></audio>
+
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/checkout.js"></script>
+  <script src="assets/js/radio.js"></script>
+</body>
+</html>
