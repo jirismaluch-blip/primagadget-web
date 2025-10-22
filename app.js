@@ -1,1 +1,0 @@
-document.getElementById('year').textContent=new Date().getFullYear();fetch('data/products.json').then(r=>r.json()).then(d=>{document.getElementById('produkty').innerHTML=d.products.map(p=>`<div><h3>${p.title}</h3><p>${p.blurb}</p></div>`).join('')});

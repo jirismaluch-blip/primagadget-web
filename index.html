@@ -2,15 +2,41 @@
 <html lang="cs">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Premium Gadget EU</title>
   <link rel="preload" href="assets/img/logo-premium-gadget-eu.png" as="image">
   <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+  /* Floating switcher styling tweak: larger frame for flags and currency */
+  #floating-switcher .switcher-content{
+    background: rgba(10,12,20,0.6);
+    padding: 12px 14px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    display:flex;flex-direction:column;gap:8px;
+    align-items:center;
+    min-width:180px;
+  }
+  #floating-switcher .language-switcher img{margin:0 6px;cursor:pointer}
+  #floating-switcher .currency-switcher{display:flex;gap:8px}
+  #floating-switcher .currency-switcher button{padding:6px 10px;border-radius:8px;border:0;background:rgba(255,255,255,0.06);color:#fff}
+  #floating-switcher .currency-switcher button.active{background:rgba(255,255,255,0.14)}
+  /* Logo / visitor stats sizing */
+  :root{ --logo-width:320px }
+  .logo img{ width:var(--logo-width); height:auto; display:block }
+  /* center visitor stats and match logo width */
+  #visitor-stats{ width:var(--logo-width); margin:8px auto 0; text-align:center; background:rgba(255,255,255,0.02); padding:8px 10px; border-radius:10px }
+  #visitor-stats .stat-item{display:block;margin:4px 0;color:#fff}
+
+  /* Neon green effect for TOP 3 product cards */
+  #top3 .product-card{border:1px solid rgba(0,255,120,0.15);box-shadow:0 6px 18px rgba(0,255,120,0.06), 0 0 18px rgba(0,255,120,0.06);transition:box-shadow .18s ease, transform .12s ease}
+  #top3 .product-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,255,120,0.18), 0 0 36px rgba(0,255,120,0.28)}
+  </style>
 </head>
 <body>
   <header class="header">
     <div class="logo fade-in glow">
-      <img src="assets/img/logo-premium-gadget-eu.png" alt="Premium Gadget EU logo" />
+      <img src="assets/img/logo-premium-gadget-eu.svg" alt="Premium Gadget EU logo" />
     </div>
     <nav class="nav">
       <a href="#produkty">Produkty</a>
@@ -21,10 +47,7 @@
     <div class="theme-toggle" id="themeToggle"><span class="icon">☾</span></div>
   </header>
 
-  <div id="visitor-stats" class="visitor-stats">
-    <div class="stat-item"><span class="dot"></span><span>Online: <strong id="onlineCount">0</strong></span></div>
-    <div class="stat-item"><span>🛍️ Zákazníků celkem: <strong id="buyerCount">0</strong></span></div>
-  </div>
+  <!-- visitor stats removed per request -->
 
   <button class="cart-fab" id="cartFab" title="Košík">
     🛒 <span id="cartCount">0</span>
@@ -36,11 +59,14 @@
         <img src="https://flagcdn.com/w20/cz.png" alt="CZ" data-lang="cs">
         <img src="https://flagcdn.com/w20/gb.png" alt="EN" data-lang="en">
         <img src="https://flagcdn.com/w20/de.png" alt="DE" data-lang="de">
+        <img src="https://flagcdn.com/w20/es.png" alt="ES" data-lang="es">
         <img src="https://flagcdn.com/w20/fr.png" alt="FR" data-lang="fr">
       </div>
       <div class="currency-switcher">
-        <button data-currency="EUR">EUR</button>
         <button data-currency="CZK">CZK</button>
+        <button data-currency="EUR">EUR</button>
+        <button data-currency="USD">USD</button>
+        <button data-currency="GBP">GBP</button>
       </div>
     </div>
   </div>
@@ -75,5 +101,152 @@
   <script src="assets/js/app.js"></script>
   <script src="assets/js/checkout.js"></script>
   <script src="assets/js/radio.js"></script>
+  <script>
+    // Blokace zoomu: CTRL + kolečko, CTRL + +/- a gesturestart (pinch)
+    document.addEventListener('wheel', function (e) {
+      if (e.ctrlKey) e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('keydown', function (e) {
+      // CTRL + +, CTRL + - (některé klávesnice posílají '=' pro '+')
+      if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=')) {
+        e.preventDefault();
+      }
+    });
+
+    // Blokace pinch-to-zoom na některých zařízeních
+    document.addEventListener('gesturestart', function (e) {
+      e.preventDefault();
+    });
+  </script>
+  <script>
+  // --- Simple i18n for static UI (flag buttons)
+  const TRANSLATIONS = {
+    cs: {
+      nav_produkty: 'Produkty',
+      nav_top10: 'Top 10',
+      nav_radio: 'Rádio',
+      nav_kontakt: 'Kontakt',
+      top3_title: 'TOP 3 PRODUKTY',
+      top10_title: 'TOP 10 NEJPRODÁVANĚJŠÍCH PRODUKTŮ',
+      radio_title: 'RÁDIO',
+      kontakt_title: 'KONTAKT',
+      contact_email: 'Napište nám',
+      contact_phone: 'Zavolejte'
+    },
+    en: {
+      nav_produkty: 'Products',
+      nav_top10: 'Top 10',
+      nav_radio: 'Radio',
+      nav_kontakt: 'Contact',
+      top3_title: 'TOP 3 PRODUCTS',
+      top10_title: 'TOP 10 BESTSELLERS',
+      radio_title: 'RADIO',
+      kontakt_title: 'CONTACT',
+      contact_email: 'Write to us',
+      contact_phone: 'Call us'
+    },
+    de: {
+      nav_produkty: 'Produkte',
+      nav_top10: 'Top 10',
+      nav_radio: 'Radio',
+      nav_kontakt: 'Kontakt',
+      top3_title: 'TOP 3 PRODUKTE',
+      top10_title: 'TOP 10 BESTSELLER',
+      radio_title: 'RADIO',
+      kontakt_title: 'KONTAKT',
+      contact_email: 'Schreib uns',
+      contact_phone: 'Ruf uns an'
+    },
+    es: {
+      nav_produkty: 'Productos',
+      nav_top10: 'Top 10',
+      nav_radio: 'Radio',
+      nav_kontakt: 'Contacto',
+      top3_title: 'TOP 3 PRODUCTOS',
+      top10_title: 'TOP 10 MÁS VENDIDOS',
+      radio_title: 'RADIO',
+      kontakt_title: 'CONTACTO',
+      contact_email: 'Escríbenos',
+      contact_phone: 'Llámanos'
+    },
+    fr: {
+      nav_produkty: 'Produits',
+      nav_top10: 'Top 10',
+      nav_radio: 'Radio',
+      nav_kontakt: 'Contact',
+      top3_title: 'TOP 3 PRODUITS',
+      top10_title: 'TOP 10 MEILLEURS VENTES',
+      radio_title: 'RADIO',
+      kontakt_title: 'CONTACT',
+      contact_email: 'Écrivez-nous',
+      contact_phone: 'Appelez-nous'
+    }
+  };
+
+  function setLanguage(lang){
+    const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+    // nav
+    const nav = document.querySelector('.nav');
+    if(nav){
+      const links = nav.querySelectorAll('a');
+      if(links[0]) links[0].textContent = t.nav_produkty;
+      if(links[1]) links[1].textContent = t.nav_top10;
+      if(links[2]) links[2].textContent = t.nav_radio;
+      if(links[3]) links[3].textContent = t.nav_kontakt;
+    }
+    // section titles
+    const sTop3 = document.querySelector('#produkty .section-title');
+    if(sTop3) sTop3.textContent = t.top3_title;
+    const sTop10 = document.querySelector('#top10 .section-title');
+    if(sTop10) sTop10.textContent = t.top10_title;
+    const sRadio = document.querySelector('#radio .section-title');
+    if(sRadio) sRadio.textContent = t.radio_title;
+    const sKontakt = document.querySelector('#kontakt .section-title');
+    if(sKontakt) sKontakt.textContent = t.kontakt_title;
+
+    // contact block
+    const contactEl = document.querySelector('#kontakt .contact');
+    if(contactEl){
+      const email = contactEl.querySelector('a[href^="mailto:"]');
+      const phone = contactEl.querySelector('a[href^="tel:"]');
+      if(email) email.parentNode.firstChild.textContent = t.contact_email + ': ';
+      if(phone) phone.parentNode.firstChild.textContent = t.contact_phone + ': ';
+    }
+
+    localStorage.setItem('site_lang', lang);
+  }
+
+  // wire flag clicks
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const flags = document.querySelectorAll('.language-switcher img');
+    flags.forEach(f=>{
+      f.style.cursor = 'pointer';
+      f.addEventListener('click', ()=>{
+        const lang = f.getAttribute('data-lang');
+        setLanguage(lang);
+      });
+    });
+    const saved = localStorage.getItem('site_lang') || 'en';
+    setLanguage(saved);
+    // currency buttons
+    const curBtns = document.querySelectorAll('.currency-switcher button');
+    curBtns.forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const c = b.getAttribute('data-currency');
+        if(window.setCurrency) { window.setCurrency(c); }
+        else {
+          localStorage.setItem('site_currency', c);
+          curBtns.forEach(x=> x.classList.toggle('active', x===b));
+          if(window.updatePrices) try{ window.updatePrices(); }catch(e){}
+        }
+      });
+    });
+    // set active from storage
+    const curSaved = localStorage.getItem('site_currency') || 'EUR';
+    curBtns.forEach(b=> b.classList.toggle('active', b.getAttribute('data-currency')===curSaved));
+  });
+  </script>
+  <!-- background-clone script removed to keep product tiles interactive and scrolling as normal -->
 </body>
 </html>

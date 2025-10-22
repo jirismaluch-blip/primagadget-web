@@ -14,25 +14,72 @@ themeToggle.addEventListener("click", () => {
   icon.textContent = isLight ? "☀" : "☾";
   localStorage.setItem("theme", isLight ? "light" : "dark");
 });
-// Visitors
-(() => {
-  const onlineEl = document.getElementById("onlineCount");
-  const buyerEl  = document.getElementById("buyerCount");
-  let online = Math.floor(Math.random()*4)+2;
-  let buyers = parseInt(localStorage.getItem("buyerCount") || "248", 10);
-  const update = () => { onlineEl.textContent = online; buyerEl.textContent = buyers; };
-  update();
-  setInterval(()=>{ online = Math.max(1, online + (Math.random()<0.5?-1:1)); update(); }, 4000);
-  if (Math.random() > 0.75) { buyers++; localStorage.setItem("buyerCount", buyers); update(); }
-})();
-// Lang/Currency stubs
+// Visitors block removed from HTML — no-op here to avoid console errors
+// Lang / Currency handling with simple conversion
 (() => {
   const langImgs = document.querySelectorAll(".language-switcher img");
   const currBtns = document.querySelectorAll(".currency-switcher button");
-  const setLang = (l)=> localStorage.setItem("language", l);
-  const setCurr = (c)=> localStorage.setItem("currency", c);
+
+  // simple hard-coded rates relative to EUR
+  const rates = { EUR: 1, USD: 1.08, GBP: 0.86, CZK: 25.0 };
+  const symbols = { EUR: '€', USD: '$', GBP: '£', CZK: 'Kč' };
+
+  const setLang = (l)=> { localStorage.setItem("language", l); /* optional: apply lang changes */ };
+
+  function getCurrentCurrency(){
+    // support both keys (legacy 'currency' and newer 'site_currency')
+    return localStorage.getItem('site_currency') || localStorage.getItem('currency') || 'EUR';
+  }
+
+  function formatPrice(eurPrice, curr){
+    const rate = rates[curr] || 1;
+    const price = eurPrice * rate;
+    try{
+      if(curr === 'CZK'){
+        return new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK', maximumFractionDigits: 0 }).format(price);
+      }
+      // for other currencies use standard formatting
+      return new Intl.NumberFormat(undefined, { style: 'currency', currency: curr, maximumFractionDigits: 2 }).format(price);
+    }catch(e){
+      // fallback
+      if (curr === 'CZK') return Math.round(price) + ' ' + symbols.CZK;
+      const symbol = symbols[curr] || '';
+      return symbol + price.toFixed(2);
+    }
+  }
+
+  function updateActiveCurrencyButtons(){
+    const curr = getCurrentCurrency();
+    document.querySelectorAll('.currency-switcher button').forEach(b => {
+      b.classList.toggle('active', b.dataset.currency === curr);
+    });
+  }
+
+  function updatePrices(){
+    const curr = getCurrentCurrency();
+    document.querySelectorAll('.product-card').forEach(card => {
+      const base = parseFloat(card.dataset.basePrice || card.getAttribute('data-base-price') || '0');
+      const priceEl = card.querySelector('.product-price');
+      if(priceEl){ priceEl.textContent = formatPrice(base, curr); }
+    });
+  }
+
+  function setCurrency(c){
+    // persist both keys for compatibility
+    localStorage.setItem('currency', c);
+    localStorage.setItem('site_currency', c);
+    updateActiveCurrencyButtons(); updatePrices();
+  }
+  // expose for external scripts
+  window.setCurrency = setCurrency;
+
   langImgs.forEach(img => img.addEventListener("click", () => setLang(img.dataset.lang)));
-  currBtns.forEach(btn => btn.addEventListener("click", () => setCurr(btn.dataset.currency)));
+  currBtns.forEach(btn => btn.addEventListener("click", () => setCurrency(btn.dataset.currency)));
+
+  // initialize UI
+  updateActiveCurrencyButtons();
+  // prices will be updated after product cards are rendered below
+  window.updatePrices = updatePrices;
 })();
 // Data
 const top3 = [
@@ -55,7 +102,10 @@ const top10 = [
 function renderProductCard(p){
   const card = document.createElement("div");
   card.className = "product-card";
+  // store base EUR price for currency conversions
+  card.dataset.basePrice = p.price;
   card.innerHTML = `
+    <div class="stock-badge">SKLADEM</div>
     <img src="${p.img}" alt="${p.name}">
     <h3>${p.name}</h3>
     <p>${p.desc || ""}</p>
@@ -80,4 +130,6 @@ function renderProductCard(p){
 }
 document.getElementById("top3").append(...top3.map(renderProductCard));
 document.getElementById("top10Grid").append(...top10.map(renderProductCard));
+// refresh displayed prices to selected currency
+if(window.updatePrices) window.updatePrices();
 window.playCash = () => { try{ cash.currentTime=0; cash.play(); }catch(e){} };
